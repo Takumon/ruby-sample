@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_15_120334) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_18_082832) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -21,5 +21,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_15_120334) do
     t.integer "amount_max"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version", default: 0, null: false
   end
 end

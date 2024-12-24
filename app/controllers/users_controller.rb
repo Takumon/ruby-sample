@@ -18,8 +18,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    p =user_params
-    user = User.new(p)
+    user = User.new(user_params)
     if !user.valid?
       render json: camelize_keys({ error: user.errors }), status: :bad_request
       return
@@ -34,11 +33,15 @@ class UsersController < ApplicationController
 
   def update
     user = get_user
-    if user.update(user_params)
+    if user.update(user_params_for_update)
       render json: user
     else
-      render json: user.errors, status: :unprocessable_entity
+      render json: user.errors, status: :conflict
     end
+  rescue ActiveRecord::StaleObjectError => e
+    render json: { error: "更新中に他のユーザーがこのデータを更新しました。最新の情報でリトライしてください" }, status: :conflict
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "対象の情報が見つかりませんでした" }, status: :not_found
   end
 
   def destroy
@@ -60,6 +63,20 @@ class UsersController < ApplicationController
         :bio,
         :amount_min,
         :amount_max,
+        )
+    end
+
+    def user_params_for_update
+      params.permit(
+        :name,
+        :email,
+        :birthday,
+        :gender,
+        :bio,
+        :amount_min,
+        :amount_max,
+        :updated_at,
+        :lock_version,
         )
     end
 

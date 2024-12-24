@@ -51,7 +51,7 @@ class User < ApplicationRecord
 
     def amount_min_less_than_or_equal_amount_max
       if errors[:amount_min].empty? && errors[:amount_max].empty? && amount_min > amount_max
-        errors.add(:amount_min, :greater_than_or_equal, other: '金額上限') # TODO: 金額上限をハードコードしたくない。属性名を取得したい
+        errors.add(:amount_min, :greater_than_or_equal, other: "金額上限") # TODO: 金額上限をハードコードしたくない。属性名を取得したい
       end
     end
 end

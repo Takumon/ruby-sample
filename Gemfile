@@ -30,7 +30,7 @@ gem "bootsnap", require: false
 gem "rack-cors"
 gem "kaminari", "~> 1.2", ">= 1.2.2"
 gem "rails-i18n", "~> 7.0.0"
-gem "jwt", "~> 1.5", ">= 1.5.4"
+gem "jwt", "~> 2.10"
 
 group :development, :test do
   gem "faker", "~> 3.4", ">= 3.4.2"

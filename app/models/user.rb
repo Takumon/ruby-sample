@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :books
+
   validates :name,
     presence: true,
     length: { minimum: 1, maximum: 80 }
